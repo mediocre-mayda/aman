@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
-publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+publish_to: "none" # Remove this line if you wish to publish to pub.dev
 
 # The following defines the version and build number for your application.
 # A version number is three numbers separated by dots, like 1.2.43
@@ -23,7 +23,29 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
 
+  http: ^0.12.1
+  provider: ^4.1.3
+  imei_plugin: ^1.1.6
+  shared_preferences: ^0.5.7+3
+  animated_splash: ^1.0.0
+  font_awesome_flutter: ^8.5.0
+  json_table: ^1.4.0
+  google_fonts: ^1.1.0
+  flutter_platform_widgets: ^0.60.2
+  toast: ^0.1.5
+  progress_dialog: ^1.2.4
+  rflutter_alert: ^1.0.3
+  device_id: ^0.2.0
+  rounded_loading_button: ^1.0.8
+  #nice_button: ^0.1.7
+  easy_text_input: ^1.0.2
+  beauty_textfield: ^0.0.1
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -33,21 +55,32 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
+  flutter_launcher_icons: "^0.7.3"
+  #flutter_stetho: ^0.5.2
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
 # The following section is specific to Flutter.
 flutter:
-
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  fonts:
+    - family: Hacen
+      fonts:
+        - asset: fonts/Hacen-Algeria.ttf
+          weight: 700
 
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
+
+  assets:
+    - lang/en.json
+    - lang/ar.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
