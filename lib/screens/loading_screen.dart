@@ -40,7 +40,7 @@ class LoadingScreen extends StatelessWidget {
   };
 
   //setup the return value correctly for proper navigation
-  Map<int, Widget> op = {1: HomeScreen(), 2: LoginScreen()};
+  Map<int, Widget> op = {1: MainScreen(), 2: LoginScreen()};
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +48,7 @@ class LoadingScreen extends StatelessWidget {
       body: Container(
         child: CustomAnimatedSplash(
           customWidget: SplashLogo(),
-          home: MainScreen(), //TODO replace with Login screen
+          home: LoginScreen(), //TODO replace with Login screen
           duration: 2500,
           customFunction: loadingSplash,
           type: AnimatedSplashType.BackgroundProcess,

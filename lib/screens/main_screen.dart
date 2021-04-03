@@ -6,8 +6,14 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text("Henlo"),),
       body: Container(
-      
-    ));
+        color: Colors.white,
+        child: Text(
+          "Hello Main",
+          style: TextStyle(color: Colors.blue),
+        ),
+      ),
+    );
   }
 }
