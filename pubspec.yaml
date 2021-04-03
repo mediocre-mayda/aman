@@ -56,7 +56,10 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_icons: "^0.7.3"
-  #flutter_stetho: ^0.5.2
+  flutter_stetho:  
+    git:
+      url: git://github.com/jasonlewicki/flutter_stetho.git
+      ref: master
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

@@ -19,7 +19,7 @@ class LoadingScreen extends StatelessWidget {
     SharedPreferences prefs = await SharedPreferences.getInstance();
 //    isLoggedIn = prefs.getBool('is_logged_in');
     customerId = prefs.getInt('customer_id');
-    password = prefs.getString('password');
+    password = prefs.getString('token');
     print("LoadingScreen: _userData(): customer_id = $customerId");
     print("LoadingScreen: _userData(): password = $password");
   }
