@@ -10,13 +10,13 @@ class ReportService {
   }
 
   postReport(
-      String type, String description, String token, String userId) async {
-    Map<String, String> body = {};
+      String type, String description, String token, String userId, double lat, double lng) async {
+    Map<String, dynamic> body = {};
     body['reportType'] = type;
     body['userId'] = userId;
     body['message'] = description;
-    body['lat'] = "32";
-    body['long'] = "22";
+    body['lat'] = lat;
+    body['long'] = lng;
 
     Map<String, String> headers = {};
     headers['Authorization'] = "Bearer " + token;

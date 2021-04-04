@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200) {
         _roundedButtonController.success();
         prefs.setString("token", jsonData["token"]);
-        prefs.setString("userId", jsonData["userId"]);
+        prefs.setString("userId", jsonData["_id"]);
         //print("jsonData[0]['ID'] = ${jsonData[0]['ID']}");
         _goToMainScreen(context);
       } else if (response.statusCode == 400) {

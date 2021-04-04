@@ -10,6 +10,7 @@ import 'package:expandable_card/expandable_card.dart';
 import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:location/location.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key key}) : super(key: key);
@@ -22,6 +23,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   SharedPreferences prefs;
+  Location location = new Location();
 
   @override
   void initState() {
@@ -241,9 +243,36 @@ class _MainScreenState extends State<MainScreen> {
     print("text = $text");
     print("token = ${prefs.getString("token")}");
     print("userId = ${prefs.getString("userId")}");
+    bool _serviceEnabled;
+    PermissionStatus _permissionGranted;
+    LocationData _locationData;
+
+    _serviceEnabled = await location.serviceEnabled();
+    if (!_serviceEnabled) {
+      _serviceEnabled = await location.requestService();
+      if (!_serviceEnabled) {
+        return;
+      }
+    }
+
+    _permissionGranted = await location.hasPermission();
+    if (_permissionGranted == PermissionStatus.denied) {
+      _permissionGranted = await location.requestPermission();
+      if (_permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+
+    _locationData = await location.getLocation();
+    print("_locationData latitude =  ${_locationData.latitude}");
+    print("_locationData longitude = ${_locationData.longitude}");
+
+   
+
+
     await ReportService()
         .postReport(
-            type, text, prefs.getString("token"), prefs.getString("userId"))
+            type, text, prefs.getString("token"), prefs.getString("userId"),  _locationData.latitude, _locationData.longitude)
         .then((response) async {
       print("response: ${response.body}");
     });
