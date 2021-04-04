@@ -48,7 +48,7 @@ class _LoginScreenState extends State<LoginScreen> {
       if (response.statusCode == 200) {
         _roundedButtonController.success();
         prefs.setString("token", jsonData["token"]);
-        prefs.setString("userId", jsonData["_id"]);
+        prefs.setString("userId", jsonData["user"]["_id"]);
         //print("jsonData[0]['ID'] = ${jsonData[0]['ID']}");
         _goToMainScreen(context);
       } else if (response.statusCode == 400) {
@@ -84,174 +84,194 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: background,
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        padding: EdgeInsets.only(left: 40, right: 40),
-        color: background,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              height: 100,
+      body: ColorFiltered(
+        colorFilter: ColorFilter.mode(
+            Theme.of(context).primaryColor.withOpacity(0.4), BlendMode.srcOver),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: FractionalOffset.topCenter,
+                end: FractionalOffset.bottomCenter,
+                colors: [
+                  Colors.grey.withOpacity(0.0),
+                  Theme.of(context).primaryColor,
+                ],
+                stops: [
+                  0.0,
+                  1.0
+                ]),
+            image: DecorationImage(
+              image: AssetImage("assets/images/login.jpg"),
+              fit: BoxFit.cover,
             ),
-            // Container(
-            //   height: 150,
-            //   width: 150,
-            //   decoration: BoxDecoration(boxShadow: [
-            //     BoxShadow(
-            //       color: Colors.black38,
-            //       offset: Offset(-2, -7),
-            //       blurRadius: 10.0,
-            //     )
-            //   ], color: Theme.of(context).primaryColor, shape: BoxShape.circle),
-            //   child:
-            Center(
-              child: Image(
-                width: 200,
-                height: 200,
-                image: AssetImage("assets/images/logo.png"),
+          ),
+          height: MediaQuery.of(context).size.height,
+          padding: EdgeInsets.only(left: 40, right: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 50,
               ),
-            ),
+              // Container(
+              //   height: 150,
+              //   width: 150,
+              //   decoration: BoxDecoration(boxShadow: [
+              //     BoxShadow(
+              //       color: Colors.black38,
+              //       offset: Offset(-2, -7),
+              //       blurRadius: 10.0,
+              //     )
+              //   ], color: Theme.of(context).primaryColor, shape: BoxShape.circle),
+              //   child:
+              Center(
+                child: Image(
+                  width: 200,
+                  height: 200,
+                  image: AssetImage("assets/images/splash.png"),
+                ),
+              ),
 
-            SizedBox(
-              height: 15,
-            ),
-            Text(
-              "أمان",
-              style: TextStyle(
+              // SizedBox(
+              //   height: 15,
+              // ),
+              // Text(
+              //   "أمان",
+              //   style: TextStyle(
+              //     color: Colors.white,
+              //     fontSize: 70.0,
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              //),
+              SizedBox(height: 40),
+              InputField(
+                stream: null,
+                labelText: 'الهاتف',
+                keyboardType: TextInputType.phone,
+                borderRadius: 20.0,
+                controller: _emailController,
+                onChanged: (val) {
+                  print('email: ' + val);
+                },
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              InputField(
+                stream: null,
+                labelText: 'كلمة السر',
+                obscureText: true,
+                keyboardType: TextInputType.numberWithOptions(
+                    signed: false, decimal: false),
+                borderRadius: 20.0,
+                controller: _passwordController,
+                onChanged: (val) {
+                  print('password: ' + val);
+                },
+              ),
+              // TextField(
+              //   enabled: true,
+              //   maxLines: 1,
+              //   textDirection: TextDirection.rtl,
+              //   keyboardType: TextInputType.numberWithOptions(
+              //       signed: false, decimal: false),
+              //   textInputAction: TextInputAction.done,
+              //   style: TextStyle(color: Colors.black87, fontFamily: 'Hacen'),
+              //   //              obscureText: true,
+              //   decoration: InputDecoration(
+              //     prefixIcon: Icon(
+              //       FontAwesomeIcons.key,
+              //       color: Theme.of(context).accentColor,
+              //     ),
+              //     enabledBorder: UnderlineInputBorder(
+              //       borderSide: Platform.isAndroid
+              //           ? BorderSide(color: Theme.of(context).accentColor)
+              //           : BorderSide(
+              //               color: CupertinoTheme.of(context).primaryColor),
+              //     ),
+              //     hintText: 'كلمة السر',
+              //     alignLabelWithHint: true,
+              //     hintStyle: TextStyle(color: Colors.black54),
+              //   ),
+              //   controller: _passwordController,
+              //   onChanged: (val) {
+              //     print('password: ' + val);
+              //   },
+              //   onSubmitted: _passwordSubmission,
+              // ),
+              SizedBox(
+                height: 20,
+              ),
+              RoundedLoadingButton(
                 color: Theme.of(context).primaryColor,
-                fontSize: 70.0,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            SizedBox(height: 80),
-            InputField(
-              stream: null,
-              labelText: 'الهاتف',
-              keyboardType: TextInputType.phone,
-              borderRadius: 20.0,
-              controller: _emailController,
-              onChanged: (val) {
-                print('email: ' + val);
-              },
-            ),
-            SizedBox(
-              height: 20.0,
-            ),
-            InputField(
-              stream: null,
-              labelText: 'كلمة السر',
-              obscureText: true,
-              keyboardType: TextInputType.numberWithOptions(
-                  signed: false, decimal: false),
-              borderRadius: 20.0,
-              controller: _passwordController,
-              onChanged: (val) {
-                print('password: ' + val);
-              },
-            ),
-            // TextField(
-            //   enabled: true,
-            //   maxLines: 1,
-            //   textDirection: TextDirection.rtl,
-            //   keyboardType: TextInputType.numberWithOptions(
-            //       signed: false, decimal: false),
-            //   textInputAction: TextInputAction.done,
-            //   style: TextStyle(color: Colors.black87, fontFamily: 'Hacen'),
-            //   //              obscureText: true,
-            //   decoration: InputDecoration(
-            //     prefixIcon: Icon(
-            //       FontAwesomeIcons.key,
-            //       color: Theme.of(context).accentColor,
-            //     ),
-            //     enabledBorder: UnderlineInputBorder(
-            //       borderSide: Platform.isAndroid
-            //           ? BorderSide(color: Theme.of(context).accentColor)
-            //           : BorderSide(
-            //               color: CupertinoTheme.of(context).primaryColor),
-            //     ),
-            //     hintText: 'كلمة السر',
-            //     alignLabelWithHint: true,
-            //     hintStyle: TextStyle(color: Colors.black54),
-            //   ),
-            //   controller: _passwordController,
-            //   onChanged: (val) {
-            //     print('password: ' + val);
-            //   },
-            //   onSubmitted: _passwordSubmission,
-            // ),
-            SizedBox(
-              height: 20,
-            ),
-            RoundedLoadingButton(
-              color: Theme.of(context).primaryColor,
-              controller: _roundedButtonController,
-              onPressed: () {
-                if (_passwordController.text.isEmpty ||
-                    _emailController.text.isEmpty) {
-                  Toast.show("ادخل بيانات صحيحة", context,
-                      duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
-                  _roundedButtonController.error();
-                  _roundedButtonController.reset();
-                  return;
-                }
+                controller: _roundedButtonController,
+                onPressed: () {
+                  if (_passwordController.text.isEmpty ||
+                      _emailController.text.isEmpty) {
+                    Toast.show("ادخل بيانات صحيحة", context,
+                        duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
+                    _roundedButtonController.error();
+                    _roundedButtonController.reset();
+                    return;
+                  }
 
-                // if (!isNumeric(_passwordController.text)) {
-                //   Toast.show("خطأ في الادخال!", context,
-                //       duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
-                //   _roundedButtonController.error();
+                  // if (!isNumeric(_passwordController.text)) {
+                  //   Toast.show("خطأ في الادخال!", context,
+                  //       duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
+                  //   _roundedButtonController.error();
 
-                //   return;
-                // }
-                _postLogin(_emailController.text.trim(),
-                    _passwordController.text.trim());
-              },
-              child: Container(
-                width: 120.0,
-                child: Center(
-                  child: PlatformText(
-                    'تسجيل الدخول',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                        fontFamily: 'Hacen',
-                        fontWeight: FontWeight.w600),
+                  //   return;
+                  // }
+                  _postLogin(_emailController.text.trim(),
+                      _passwordController.text.trim());
+                },
+                child: Container(
+                  width: 120.0,
+                  child: Center(
+                    child: PlatformText(
+                      'تسجيل الدخول',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20.0,
+                          fontFamily: 'Hacen',
+                          fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
               ),
-            ),
-            Expanded(
-              flex: 1,
-              child: Container(child: Text('')),
-            ),
-            Column(
-              children: <Widget>[
-                SizedBox(height: 5),
-                InkWell(
-                  child: Text(
-                    "أو قم بإنشاء حساب",
-                    style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        fontSize: 16,
-                        color: Colors.black54,
-                        fontWeight: FontWeight.bold),
+              Expanded(
+                flex: 1,
+                child: Container(child: Text('')),
+              ),
+              Column(
+                children: <Widget>[
+                  SizedBox(height: 5),
+                  InkWell(
+                    child: Text(
+                      "أو قم بإنشاء حساب",
+                      style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    onTap: () {},
                   ),
-                  onTap: () {},
-                ),
 
-                // Text(
-                //   "Powered By Tatweer Research",
-                //   style: TextStyle(
-                //       fontSize: 11,
-                //       color: Colors.black54,
-                //       fontWeight: FontWeight.bold),
-                // ),
-              ],
-            ),
-            SizedBox(
-              height: 10,
-            )
-          ],
+                  // Text(
+                  //   "Powered By Tatweer Research",
+                  //   style: TextStyle(
+                  //       fontSize: 11,
+                  //       color: Colors.black54,
+                  //       fontWeight: FontWeight.bold),
+                  // ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              )
+            ],
+          ),
         ),
       ),
     );

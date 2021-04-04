@@ -1,4 +1,5 @@
 import 'package:aman/data/network/services/report_service.dart';
+import 'package:aman/screens/login_screen.dart';
 import 'package:aman/screens/map_screen.dart';
 import 'package:aman/utils/colors.dart';
 import 'package:aman/widgets/header_widget.dart';
@@ -12,6 +13,7 @@ import 'package:bottom_sheet/bottom_sheet.dart';
 import 'package:rounded_loading_button/rounded_loading_button.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:location/location.dart';
+import 'package:toast/toast.dart';
 
 class MainScreen extends StatefulWidget {
   MainScreen({Key key}) : super(key: key);
@@ -218,6 +220,8 @@ class _MainScreenState extends State<MainScreen> {
             _locationData.longitude)
         .then((response) async {
       print("response: ${response.body}");
+      Toast.show('تم نشر بلاغك', context,
+          duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
     });
   }
 
@@ -445,13 +449,30 @@ class _MainScreenState extends State<MainScreen> {
           hasIcon: true,
         ),
       ),
-      Divider(
-        indent: 50,
-        endIndent: 50,
-        thickness: 1.5,
-        color: Theme.of(context).primaryColor,
+      InkWell(
+        onDoubleTap: () async {
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.remove("userId");
+          prefs.remove("token");
+          _goToLoginScreen(context);
+        },
+        child: Divider(
+          indent: 50,
+          endIndent: 50,
+          thickness: 1.5,
+          color: Theme.of(context).primaryColor,
+        ),
       ),
     ];
+  }
+
+  _goToLoginScreen(BuildContext context) {
+    Navigator.of(context).pop();
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+            fullscreenDialog: true,
+            builder: (BuildContext context) => LoginScreen()),
+        (Route<dynamic> route) => false);
   }
 
   _goToMapScreen() {

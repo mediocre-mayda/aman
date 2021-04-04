@@ -3,12 +3,11 @@ import 'package:aman/utils/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_stetho/flutter_stetho.dart';
+//import 'package:flutter_stetho/flutter_stetho.dart';
 import 'utils/colors.dart';
 
 void main() {
-  Stetho.initialize();
+  //flStetho.initialize();
   runApp(MyApp());
 }
 

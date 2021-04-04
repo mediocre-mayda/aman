@@ -221,15 +221,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.60.2"
-  flutter_stetho:
-    dependency: "direct dev"
-    description:
-      path: "."
-      ref: master
-      resolved-ref: "9d3268e75937eeea2cfed8d0dbab387532067082"
-      url: "git://github.com/jasonlewicki/flutter_stetho.git"
-    source: git
-    version: "0.5.2"
   flutter_test:
     dependency: "direct dev"
     description: flutter
