@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-const primary = Color(0xFF52664a);
+const primary = Color(0xFF658c3e);
 const background = Color(0xFFF6F7FF);
-const aman_red = Color(0xFFc1121f);
+const aman_red = Color(0xFFa60807);
 
 const List<Color> themeColors = [
   Color(0xFF3C7693),

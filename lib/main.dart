@@ -60,7 +60,7 @@ class MyApp extends StatelessWidget {
         accentColor: primary,
 
         // Define the default font family.
-        fontFamily: 'Hacen',
+        fontFamily: 'TheSans',
 
         // Define the default TextTheme. Use this to specify the default
         // text styling for headlines, titles, bodies of text, and more.
@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
           headline4: TextStyle(fontSize: 84.0, fontWeight: FontWeight.bold),
           headline1: TextStyle(
               fontSize: 84.0, fontWeight: FontWeight.bold, color: Colors.white),
-          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'Hacen'),
+          bodyText2: TextStyle(fontSize: 14.0, fontFamily: 'TheSans'),
         ),
       ),
       title: 'أمان',

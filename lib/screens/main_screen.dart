@@ -1,4 +1,5 @@
 import 'package:aman/data/network/services/report_service.dart';
+import 'package:aman/screens/map_screen.dart';
 import 'package:aman/utils/colors.dart';
 import 'package:aman/widgets/header_widget.dart';
 import 'package:easy_text_input/easy_text_input.dart';
@@ -42,67 +43,7 @@ class _MainScreenState extends State<MainScreen> {
         color: Colors.white,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
-          children: <Widget>[
-            HeaderWidget(name: "", description: "", icon: FontAwesomeIcons.map),
-            SizedBox(height: 20),
-            Text(
-              "قائمة البلاغات",
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor, fontSize: 35),
-              textDirection: TextDirection.rtl,
-              textAlign: TextAlign.right,
-            ),
-            SizedBox(height: 20),
-            Container(
-              margin: EdgeInsets.only(left: 50, right: 50),
-              child: ExpandablePanel(
-                header: Row(
-                  children: [
-                    Icon(
-                      FontAwesomeIcons.carCrash,
-                      color: Theme.of(context).primaryColor,
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text(
-                      "بلاغ مروري",
-                      style: TextStyle(
-                          color: Theme.of(context).primaryColor, fontSize: 35),
-                      textDirection: TextDirection.rtl,
-                      textAlign: TextAlign.right,
-                    ),
-                  ],
-                ),
-                collapsed: Container(),
-                expanded: InkWell(
-                  onTap: () {
-                    setState(() {
-                      widget.type = "دهس وعفس";
-                      print(widget.type);
-                      _showSheet();
-                    });
-                  },
-                  child: Row(children: <Widget>[
-                    SizedBox(width: 20, height: 20),
-                    Text(
-                      "دهس وعفس",
-                      softWrap: true,
-                      style: TextStyle(fontSize: 22),
-                    ),
-                  ]),
-                ),
-                tapHeaderToExpand: true,
-                hasIcon: true,
-              ),
-            ),
-            Divider(
-              indent: 50,
-              endIndent: 50,
-              thickness: 1.5,
-              color: Theme.of(context).primaryColor,
-            ),
-          ],
+          children: _buildExpandableReports(),
         ),
       ),
     );
@@ -267,14 +208,258 @@ class _MainScreenState extends State<MainScreen> {
     print("_locationData latitude =  ${_locationData.latitude}");
     print("_locationData longitude = ${_locationData.longitude}");
 
-   
-
-
     await ReportService()
         .postReport(
-            type, text, prefs.getString("token"), prefs.getString("userId"),  _locationData.latitude, _locationData.longitude)
+            type,
+            text,
+            prefs.getString("token"),
+            prefs.getString("userId"),
+            _locationData.latitude,
+            _locationData.longitude)
         .then((response) async {
       print("response: ${response.body}");
     });
+  }
+
+  List<Widget> _buildExpandableReports() {
+    return <Widget>[
+      InkWell(
+          onTap: _goToMapScreen,
+          child: HeaderWidget(
+              name: "", description: "", icon: FontAwesomeIcons.mapMarked)),
+      SizedBox(height: 20),
+      Text(
+        "قائمة البلاغات",
+        style: TextStyle(
+          color: Theme.of(context).primaryColor,
+          fontSize: 35,
+          fontWeight: FontWeight.w700,
+        ),
+        textDirection: TextDirection.rtl,
+        textAlign: TextAlign.right,
+      ),
+      SizedBox(height: 20),
+      Container(
+        margin: EdgeInsets.only(left: 50, right: 50),
+        child: ExpandablePanel(
+          header: Row(
+            children: [
+              Icon(
+                FontAwesomeIcons.carCrash,
+                color: Theme.of(context).primaryColor,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                "بلاغ مروري",
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                ),
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.right,
+              ),
+            ],
+          ),
+          collapsed: Container(),
+          expanded: InkWell(
+            onTap: () {
+              setState(() {
+                widget.type = "دهس وعفس";
+                print(widget.type);
+                _showSheet();
+              });
+            },
+            child: Row(children: <Widget>[
+              SizedBox(width: 50, height: 30),
+              Text(
+                "دهس وعفس",
+                softWrap: true,
+                style: TextStyle(
+                    fontSize: 22, color: Theme.of(context).primaryColor),
+              ),
+            ]),
+          ),
+          tapHeaderToExpand: true,
+          hasIcon: true,
+        ),
+      ),
+      Divider(
+        indent: 50,
+        endIndent: 50,
+        thickness: 1.5,
+        color: Theme.of(context).primaryColor,
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 50, right: 50),
+        child: ExpandablePanel(
+          header: Row(
+            children: [
+              Icon(
+                FontAwesomeIcons.ambulance,
+                color: Theme.of(context).primaryColor,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                "طلب اسعاف",
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                ),
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.right,
+              ),
+            ],
+          ),
+          collapsed: Container(),
+          expanded: InkWell(
+            onTap: () {
+              setState(() {
+                widget.type = "1طلب اسعاف";
+                print(widget.type);
+                _showSheet();
+              });
+            },
+            child: Row(children: <Widget>[
+              SizedBox(width: 50, height: 30),
+              Text(
+                "1طلب اسعاف",
+                softWrap: true,
+                style: TextStyle(
+                    fontSize: 22, color: Theme.of(context).primaryColor),
+              ),
+            ]),
+          ),
+          tapHeaderToExpand: true,
+          hasIcon: true,
+        ),
+      ),
+      Divider(
+        indent: 50,
+        endIndent: 50,
+        thickness: 1.5,
+        color: Theme.of(context).primaryColor,
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 50, right: 50),
+        child: ExpandablePanel(
+          header: Row(
+            children: [
+              Icon(
+                FontAwesomeIcons.fireExtinguisher,
+                color: Theme.of(context).primaryColor,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                "بلاغ حريق",
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                ),
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.right,
+              ),
+            ],
+          ),
+          collapsed: Container(),
+          expanded: InkWell(
+            onTap: () {
+              setState(() {
+                widget.type = "بلاغ حريق";
+                print(widget.type);
+                _showSheet();
+              });
+            },
+            child: Row(children: <Widget>[
+              SizedBox(width: 50, height: 30),
+              Text(
+                "بلاغ حريق",
+                softWrap: true,
+                style: TextStyle(
+                    fontSize: 22, color: Theme.of(context).primaryColor),
+              ),
+            ]),
+          ),
+          tapHeaderToExpand: true,
+          hasIcon: true,
+        ),
+      ),
+      Divider(
+        indent: 50,
+        endIndent: 50,
+        thickness: 1.5,
+        color: Theme.of(context).primaryColor,
+      ),
+      Container(
+        margin: EdgeInsets.only(left: 50, right: 50),
+        child: ExpandablePanel(
+          header: Row(
+            children: [
+              Icon(
+                FontAwesomeIcons.infoCircle,
+                color: Theme.of(context).primaryColor,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(
+                "بلاغ مخصص",
+                style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 30,
+                  fontWeight: FontWeight.w700,
+                ),
+                textDirection: TextDirection.rtl,
+                textAlign: TextAlign.right,
+              ),
+            ],
+          ),
+          collapsed: Container(),
+          expanded: InkWell(
+            onTap: () {
+              setState(() {
+                widget.type = "بلاغ مخصص";
+                print(widget.type);
+                _showSheet();
+              });
+            },
+            child: Row(children: <Widget>[
+              SizedBox(width: 50, height: 30),
+              Text(
+                "بلاغ مخصص",
+                softWrap: true,
+                style: TextStyle(
+                    fontSize: 22, color: Theme.of(context).primaryColor),
+              ),
+            ]),
+          ),
+          tapHeaderToExpand: true,
+          hasIcon: true,
+        ),
+      ),
+      Divider(
+        indent: 50,
+        endIndent: 50,
+        thickness: 1.5,
+        color: Theme.of(context).primaryColor,
+      ),
+    ];
+  }
+
+  _goToMapScreen() {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            //settings: RouteSettings(name: RoutesSettings.MAIN_ROUTE),
+            fullscreenDialog: true,
+            builder: (BuildContext context) => MapScreen()));
   }
 }
