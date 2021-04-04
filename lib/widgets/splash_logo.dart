@@ -23,13 +23,21 @@ class SplashLogo extends StatelessWidget {
             //   ], color: Theme.of(context).primaryColor, shape: BoxShape.circle),
             //   child: Center(), //TODO LOGO
             // ),
-
-            Center(child: Text(
-              "أمان",
-              style: Theme.of(context).textTheme.headline1,
-            ),)
+            Center(
+              child: Image(
+                width: 200,
+                height: 200,
+                image: AssetImage("assets/images/splash.png"),
+              ),
+            ),
+            Center(
+              child: Text(
+                "أمان",
+                style: Theme.of(context).textTheme.headline1,
+              ),
+            )
           ]),
-          color: Theme.of(context).primaryColor,
+      color: Theme.of(context).primaryColor,
     );
   }
 }

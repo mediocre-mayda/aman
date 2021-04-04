@@ -94,24 +94,25 @@ class _LoginScreenState extends State<LoginScreen> {
             SizedBox(
               height: 100,
             ),
-            Container(
-              height: 150,
-              width: 150,
-              decoration: BoxDecoration(boxShadow: [
-                BoxShadow(
-                  color: Colors.black38,
-                  offset: Offset(-2, -7),
-                  blurRadius: 10.0,
-                )
-              ], color: Theme.of(context).primaryColor, shape: BoxShape.circle),
-              child: Center(
-                child: Icon(
-                  FontAwesomeIcons.universalAccess,
-                  color: Colors.white,
-                  size: 60.0,
-                ),
+            // Container(
+            //   height: 150,
+            //   width: 150,
+            //   decoration: BoxDecoration(boxShadow: [
+            //     BoxShadow(
+            //       color: Colors.black38,
+            //       offset: Offset(-2, -7),
+            //       blurRadius: 10.0,
+            //     )
+            //   ], color: Theme.of(context).primaryColor, shape: BoxShape.circle),
+            //   child:
+            Center(
+              child: Image(
+                width: 200,
+                height: 200,
+                image: AssetImage("assets/images/logo.png"),
               ),
             ),
+
             SizedBox(
               height: 15,
             ),
@@ -119,15 +120,15 @@ class _LoginScreenState extends State<LoginScreen> {
               "أمان",
               style: TextStyle(
                 color: Theme.of(context).primaryColor,
-                fontSize: 84.0,
+                fontSize: 70.0,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 120),
+            SizedBox(height: 80),
             InputField(
               stream: null,
-              labelText: 'البريد الإلكتروني',
-              keyboardType: TextInputType.emailAddress,
+              labelText: 'الهاتف',
+              keyboardType: TextInputType.phone,
               borderRadius: 20.0,
               controller: _emailController,
               onChanged: (val) {

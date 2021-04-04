@@ -11,7 +11,7 @@ class AuthService {
 
   login(String email, String password) async {
     Map<String, String> body = {};
-    body['username'] = email;
+    body['phoneNumber'] = email;
     body['password'] = password;
     return _repository
         .httpPost("user/signin", body: json.encode(body));

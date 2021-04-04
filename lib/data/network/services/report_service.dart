@@ -9,7 +9,8 @@ class ReportService {
     _repository = Repository();
   }
 
-  postReport(String type, String description, String token, String userId) async {
+  postReport(
+      String type, String description, String token, String userId) async {
     Map<String, String> body = {};
     body['reportType'] = type;
     body['userId'] = userId;
@@ -20,7 +21,7 @@ class ReportService {
     Map<String, String> headers = {};
     headers['Authorization'] = "Bearer " + token;
 
-    return _repository
-        .httpPostWithHeaders("/reports", body: json.encode(body), newHeaders: headers);
+    return _repository.httpPostWithHeaders("/reports",
+        body: json.encode(body), newHeaders: headers);
   }
 }

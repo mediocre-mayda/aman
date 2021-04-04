@@ -170,7 +170,6 @@ class _MainScreenState extends State<MainScreen> {
               Expanded(
                 child: InputField(
                   stream: null,
-                  labelText: 'ملاحظات',
                   keyboardType: TextInputType.text,
                   borderRadius: 20.0,
                   controller: widget._notesController,
@@ -224,13 +223,16 @@ class _MainScreenState extends State<MainScreen> {
             ],
           ),
         ),
-        SizedBox(height: 30),
-        FlatButton(
-          onPressed: () {
-            _submitReport(widget.type, widget._notesController.text);
-          },
-          color: Colors.white,
-          child: Text("إرسال", style: TextStyle(color: aman_red)),
+        SizedBox(height: 40),
+        Container(
+          margin: EdgeInsets.symmetric(horizontal: 60),
+          child: FlatButton(
+            onPressed: () {
+              _submitReport(widget.type, widget._notesController.text);
+            },
+            color: Colors.white,
+            child: Text("إرسال", style: TextStyle(color: aman_red)),
+          ),
         ),
       ];
 
@@ -238,6 +240,7 @@ class _MainScreenState extends State<MainScreen> {
     print("type = $type");
     print("text = $text");
     print("token = ${prefs.getString("token")}");
+    print("userId = ${prefs.getString("userId")}");
     await ReportService()
         .postReport(
             type, text, prefs.getString("token"), prefs.getString("userId"))
