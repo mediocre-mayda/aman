@@ -43,6 +43,9 @@ dependencies:
   #nice_button: ^0.1.7
   easy_text_input: ^1.0.2
   beauty_textfield: ^0.0.1
+  expandable: ^4.1.4
+  expandable_card: ^0.0.3+1
+  bottom_sheet: ^0.0.1-dev.8
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -56,7 +59,7 @@ dev_dependencies:
     sdk: flutter
 
   flutter_launcher_icons: "^0.7.3"
-  flutter_stetho:  
+  flutter_stetho:
     git:
       url: git://github.com/jasonlewicki/flutter_stetho.git
       ref: master
@@ -82,6 +85,9 @@ flutter:
   #   - images/a_dot_ham.jpeg
 
   assets:
+    - assets/
+    - assets/icons/
+    - assets/images/
     - lang/en.json
     - lang/ar.json
 

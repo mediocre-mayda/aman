@@ -14,7 +14,14 @@ class Repository {
   }
 
   httpPost(String api, {String body}) async {
-    return http.post(_baseUrl +"/" + api, body: body , headers: headers);
+    return http.post(_baseUrl + "/" + api, body: body, headers: headers);
+  }
+
+  httpPostWithHeaders(String api,
+      {String body, Map<String, String> newHeaders}) async {
+        newHeaders.addAll(headers);
+    return http.post(_baseUrl + "/" + api,
+        body: body, headers: newHeaders);
   }
 
   // httpGetNewBaseUrl(String api) async {
